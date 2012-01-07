@@ -1,0 +1,28 @@
+;;dot emacs file by MildC
+
+(defconst emacs-path           "~/.emacs.d/" "Emacs Home Path")
+
+;;设置emacs配置读取路径
+(add-to-list 'load-path emacs-path)
+;;设置emacs扩展读取路径
+(add-to-list 'load-path (concat emacs-path "extension"))
+
+;; 编码设置
+(require 'coding-settings)
+
+;; 编码设置
+(require 'UI-settings)
+
+(require 'misc-settings)
+
+;; 各种语言开发方面的设置
+(require 'dev-settings)
+
+;;pymacs
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+
+
