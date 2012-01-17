@@ -24,6 +24,7 @@
 (add-hook 'java-mode-hook       'my-common-mode-auto-pair)
 (add-hook 'ess-mode-hook       'my-common-mode-auto-pair)
 (add-hook 'perl-mode-hook       'my-common-mode-auto-pair)
+(add-hook 'cperl-mode-hook       'my-common-mode-auto-pair)
 (add-hook 'sh-mode-hook         'my-common-mode-auto-pair)
 
 ;; 绑定括号转跳到%，和vi相同
@@ -138,6 +139,9 @@
 
 ;; rails
 (require 'rails-settings)
+
+;; perl
+(require 'perl-settings)
 
 ;; 所有的自动补全的配置
 (require 'all-auto-complete-settings)

@@ -18,6 +18,8 @@
 ;; 各种语言开发方面的设置
 (require 'dev-settings)
 
+
+;;to be merged into dev-settings later
 ;;pymacs
 (autoload 'pymacs-apply "pymacs")
 (autoload 'pymacs-call "pymacs")
