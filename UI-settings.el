@@ -27,8 +27,9 @@
 ;; …Ë÷√color-theme
 (add-to-list 'load-path (concat emacs-path "color-theme"))
 (require 'color-theme)
-(color-theme-initialize)  
-(color-theme-calm-forest)
+(color-theme-initialize)
+(require 'color-theme-awesome)
+(color-theme-awesome)
 
 ;; œ‘ æ¡–∫≈
 (setq column-number-mode t)
