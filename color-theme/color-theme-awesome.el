@@ -21,7 +21,7 @@
 
      (font-lock-builtin-face ((t (:foreground "PaleGreen"))))
      ;(font-lock-builtin-face ((t (:foreground "#88e07c"))))
-     (font-lock-comment-face ((t (:foreground "#93ddff" :italic t))))
+     (font-lock-comment-face ((t (:foreground "#93ddff" t))))
      (font-lock-constant-face ((t (:foreground "PaleGreen"))))
      (font-lock-doc-face ((t (:foreground "SkyBlue" :italic t))))
      ;;(font-lock-function-name-face ((t (:foreground "Khaki" :bold t))))
