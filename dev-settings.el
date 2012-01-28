@@ -167,20 +167,6 @@
 
 (defun imenu-tree-settings ()
   "Settings for `imenu-tree'."
-  (defun imenu-tree-expand (tree)
-    (or (widget-get tree :args)
-        (let ((buf (widget-get tree :buffer))
-              index)
-          (setq index
-                (with-current-buffer buf
-                  (setq imenu--index-alist nil)
-                  (let ((imenu-create-index-function 'imenu-default-create-index-function))
-                    (imenu--make-index-alist t))
-                  (delq nil imenu--index-alist)))
-          (mapcar
-           (lambda (item)
-             (imenu-tree-item item buf "function"))
-           index))))
   (global-set-key (kbd "C-c i") 'imenu-tree)
   (setq tags-table-list '("./TAGS" "../TAGS" "../../TAGS"))
   (setq imenu-tree-auto-update t))

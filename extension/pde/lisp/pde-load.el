@@ -62,7 +62,7 @@
  '((require 'perlapi)))
 
 (defalias 'perl-mode 'cperl-mode)
-(setq-default indent-tabs-mode nil)
+
 (setq ffap-url-regexp
       (concat
        "\\`\\("
@@ -86,50 +86,13 @@
   (setq completion-ignore-case t)
   ;; many DWIM commands work only in transient-mark-mode
   (transient-mark-mode t)
-  ;; don't use ido-imenu unless turn on ido-mode
-  (ido-mode t)
-  (eval-after-load "imenu"
-    '(defalias 'imenu--completion-buffer 'pde-ido-imenu-completion))
-  ;; complete reading module name when calling find-file
-  (require 'complete)           ; need for define PC-include-file-path
-  (partial-completion-mode t)
-  (setq PC-include-file-path
-        (append PC-include-file-path pde-perl-inc))
-  (setq imenu-tree-auto-update t)
-  (setq compilation-buffer-name-function 'pde-compilation-buffer-name)
+
   (add-hook 'perldoc-mode-hook 'pde-tabbar-register)
   (autoload 'comint-dynamic-complete "comint" "Complete for file name" t)
   (autoload 're-builder "re-builder-x" "Construct a regexp interactively." t)
   (setq comint-completion-addsuffix '("/" . ""))
   (setq tags-table-list '("./TAGS" "../TAGS" "../../TAGS"))
-  (setq hippie-expand-try-functions-list
-        '(try-expand-line
-          try-expand-dabbrev
-          try-expand-line-all-buffers
-          try-expand-list
-          try-expand-list-all-buffers
-          try-expand-dabbrev-visible
-          try-expand-dabbrev-all-buffers
-          try-expand-dabbrev-from-kill
-          try-complete-file-name
-          try-complete-file-name-partially
-          try-complete-lisp-symbol
-          try-complete-lisp-symbol-partially
-          try-expand-whole-kill))
 
-  (global-set-key "\C-m" 'newline-and-indent)
-  (global-set-key "\C-j" 'newline)
-  (global-set-key (kbd "M-'") 'just-one-space)
-  (global-set-key (kbd "C-M-=") 'pde-indent-dwim)
-  ;; nearest key to dabbrev-expand
-  (global-set-key (kbd "M-;") 'hippie-expand)
-  (global-set-key (kbd "C-;") 'comment-dwim)
-  (global-set-key "\C-cf" 'comint-dynamic-complete)
-  (global-set-key "\C-cs" 'compile-dwim-compile)
-  (global-set-key "\C-cr" 'compile-dwim-run)
-  (global-set-key "\C-ci" 'imenu)
-  (global-set-key "\C-cv" 'imenu-tree)
-  (global-set-key "\C-cj" 'ffap)
   (global-set-key "\C-ch" 'help-dwim)
   (global-set-key "\C-xan" 'tempo-forward-mark)
   (global-set-key "\C-xap" 'tempo-backward-mark)

@@ -22,7 +22,7 @@
               (set (make-local-variable 'eldoc-documentation-function)
                    'cperl-eldoc-documentation-function)))
 
-  (setq indent-tabs-mode nil)
+  (setq-default indent-tabs-mode nil)
 
   ;;F11Брвы
   (defun perl-eval () "Run selected region as Perl code" (interactive)

@@ -13,6 +13,8 @@
 			  c-basic-offset 4	;自动缩进大小
 			  indent-tabs-mode t)	;自动缩进使用的是tab而非空格
 
+  (setq indent-tabs-mode t)
+
   (add-hook 'c-mode-common-hook 'c-mode-common-hook-settings)
 
   (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))

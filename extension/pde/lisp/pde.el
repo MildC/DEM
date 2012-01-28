@@ -34,7 +34,6 @@
 (eval-when-compile
   (require 'cl))
 (require 'pde-project)
-(require 'imenu-tree)
 (require 'perldoc)
 (require 'template-simple)
 
@@ -71,7 +70,6 @@
 
 (defvar pde-view-map
   (let ((map (make-sparse-keymap)))
-    (define-key map "\C-i" 'pde-imenu-tree)
     (define-key map "\C-p" 'pde-perldoc-tree)
     (define-key map "\C-m" 'pde-pod-to-manpage)
     map)
@@ -111,30 +109,6 @@
   "*Keymap for inf-perl commands")
 ;;}}}
 
-(defcustom pde-imenu-tree-buffer "*PDE Imenu*"
-  "*Buffer names for perl `imenu-tree'."
-  :type 'string
-  :group 'pde)
-
-(defcustom pde-buffer-tabbar-label
-  `((,perldoc-tree-buffer . "Pod Tree")
-    (,pde-imenu-tree-buffer . "Imenu"))
-  "*Labels for buffers"
-  :type '(alist :key-type string :value-type string)
-  :group 'pde)
-
-(defvar pde-scheduler-timer nil
-  "Timer used to schedule tasks in idle time.")
-
-;;{{{  Add tabbar for perldoc-tree and imenu-tree
-(defun pde-tabbar-label (tab)
-  (if tabbar-buffer-group-mode
-      (format "[%s]" (tabbar-tab-tabset tab))
-    (let ((name (tabbar-tab-value tab)))
-      (format " %s "
-              (or (assoc-default name pde-buffer-tabbar-label)
-                  name)))))
-
 ;;;###autoload 
 (defun pde-tabbar-register ()
   "Add tabbar and register current buffer to group Perl."
@@ -144,16 +118,8 @@
   (set (make-local-variable 'tabbar-tab-label-function) 'pde-tabbar-label)
   (set (make-local-variable 'tabbar-home-button-disabled) ""))
 
-(defun pde-imenu-tree-create-buffer (&rest ignore)
-  (get-buffer-create pde-imenu-tree-buffer))
-
-(defun pde-imenu-tree-hook ()
-  (when (string= pde-imenu-tree-buffer (buffer-name))
-    (pde-tabbar-register)))
-
 ;; for future extension
 (defalias 'pde-perldoc-tree 'perldoc-tree)
-(defalias 'pde-imenu-tree 'imenu-tree)
 ;;}}}
 
 ;;;###autoload 
@@ -184,34 +150,6 @@
             (if (> (length bufs) 0)
                 (format "<%d>" (length bufs)))
             "*")))
-
-;;;###autoload 
-(defun pde-ido-imenu-completion (index-alist &optional prompt)
-  ;; Create a list for this buffer only when needed.
-  (let ((name (thing-at-point 'symbol))
-        choice
-        (prepared-index-alist
-         (if (not imenu-space-replacement) index-alist
-           (mapcar
-            (lambda (item)
-              (cons (subst-char-in-string ?\s (aref imenu-space-replacement 0)
-                                          (car item))
-                    (cdr item)))
-            index-alist))))
-    (when (stringp name)
-      (setq name (or (imenu-find-default name prepared-index-alist) name)))
-    (setq name (funcall (if ido-mode
-                            'ido-completing-read
-                          'completing-read)
-                        "Index item: "
-                        (mapcar 'car prepared-index-alist)
-                        nil t nil 'imenu--history-list
-                        (and name (imenu--in-alist name prepared-index-alist) name)))
-    (when (stringp name)
-      (setq choice (assoc name prepared-index-alist))
-      (if (imenu--subalist-p choice)
-          (imenu--completion-buffer (cdr choice) prompt)
-        choice))))
 
 (define-template-expander pde
     (progn
@@ -285,7 +223,6 @@ With prefix argument, reflesh the formated manpage."
   "Hooks run when enter perl-mode"
   ;; initialize with key binding and so on
   (unless pde-initialized
-    (add-hook 'imenu-tree-mode-hook 'pde-imenu-tree-hook)
     (add-to-list 'cperl-style-alist
                  '("PDE"
                    (cperl-auto-newline                         . t)
@@ -312,7 +249,6 @@ With prefix argument, reflesh the formated manpage."
                 "-----"
                 ["Run shell" run-perl t]
                 ["Perldoc Tree" pde-perldoc-tree t]
-                ["Imenu Tree" pde-imenu-tree t]
                 ["View Pod" pde-pod-to-manpage t]
                 ("Perltidy"
                  ["Perltidy DWIM" perltidy-dwim t]
@@ -339,8 +275,6 @@ With prefix argument, reflesh the formated manpage."
   (cperl-set-style "PDE")
   (abbrev-mode t)
   (help-dwim-active-type 'perldoc)
-  (set (make-local-variable 'imenu-tree-create-buffer-function)
-       'pde-imenu-tree-create-buffer)
   (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p nil t)
   (set (make-local-variable 'compile-dwim-check-tools) nil)
   (when pde-extra-setting

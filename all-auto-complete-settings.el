@@ -42,7 +42,6 @@
 (add-to-list 'load-path
 			 (concat emacs-path "extension/yasnippet/"))
 (require 'yasnippet) ;; not yasnippet-bundle
-(yas/initialize)
 (yas/global-mode t) 
 (yas/load-directory (concat emacs-path "extension/yasnippet/snippets"))
 
