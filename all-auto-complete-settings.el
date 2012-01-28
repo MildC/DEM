@@ -1,38 +1,52 @@
 ;; hippie expand
+
 (global-set-key [(control tab)] 'hippie-expand)
+
 ;;;hippie的自动补齐策略，优先调用了senator的分析结果：
-(autoload 'senator-try-expand-semantic "senator")
-(setq hippie-expand-try-functions-list
-      '(
-        senator-try-expand-semantic
-        try-expand-dabbrev
-        try-expand-dabbrev-visible
-        try-expand-dabbrev-all-buffers
-        try-expand-dabbrev-from-kill
-        try-expand-list
-        try-expand-list-all-buffers
-        try-expand-line
-        try-expand-line-all-buffers
-        try-complete-file-name-partially
-        try-complete-file-name
-        try-expand-whole-kill
-        )
-      )
+(defun hippie-expand-settings ()
+  "Settings for `hippie-expand'."
+  (setq hippie-expand-try-functions-list
+        '(try-expand-dabbrev
+          try-expand-dabbrev-visible
+          try-expand-dabbrev-all-buffers
+          try-expand-dabbrev-from-kill
+          try-complete-file-name-partially
+          try-complete-file-name
+          try-expand-all-abbrevs
+          try-expand-list
+          try-expand-line
+          try-complete-lisp-symbol-partially
+          try-complete-lisp-symbol
+          try-expand-whole-kill))
+
+  (am-add-hooks
+   `(emacs-lisp-mode-hook lisp-interaction-mode-hook)
+   '(lambda ()
+      (make-local-variable 'hippie-expand-try-functions-list)
+      (setq hippie-expand-try-functions-list
+            '(try-expand-dabbrev
+              try-expand-dabbrev-visible
+              try-expand-dabbrev-all-buffers
+              try-expand-dabbrev-from-kill
+              try-complete-file-name-partially
+              try-complete-file-name
+              try-expand-all-abbrevs
+              try-expand-list
+              try-expand-line
+              try-expand-whole-kill)))))
+
+(eval-after-load "hippie-exp"
+  `(hippie-expand-settings))
 
 ;;yasnippet配置
 (add-to-list 'load-path
 			 (concat emacs-path "extension/yasnippet/"))
 (require 'yasnippet) ;; not yasnippet-bundle
 (yas/initialize)
+(yas/global-mode t) 
 (yas/load-directory (concat emacs-path "extension/yasnippet/snippets"))
 
 ;; 自动补全
-(add-to-list 'load-path (concat emacs-path "extension/auto-complete"))
-(require 'auto-complete+)
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories (concat emacs-path "extension/auto-complete/ac-dict"))
-(ac-config-default)
-(require 'auto-complete-yasnippet)
-(ac-set-trigger-key "TAB")
+(require 'auto-complete-settings)
 
 (provide 'all-auto-complete-settings)

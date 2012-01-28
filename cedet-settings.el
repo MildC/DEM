@@ -7,6 +7,23 @@
 (semantic-load-enable-code-helpers)
 (semantic-load-enable-excessive-code-helpers)
 
+;; (setq semanticdb-project-roots (list (expand-file-name "/")))
+(defconst cedet-user-include-dirs
+  (list ".." "../include" "../inc" "../common" "../public"
+        "../.." "../../include" "../../inc" "../../common" "../../public"))
+(require 'semantic-c nil 'noerror)
+(let ((include-dirs cedet-user-include-dirs))
+  (when (eq system-type 'windows-nt)
+    (setq include-dirs (append include-dirs cedet-win32-include-dirs)))
+  (mapc (lambda (dir)
+          (semantic-add-system-include dir 'c++-mode)
+          (semantic-add-system-include dir 'c-mode))
+        include-dirs))
+
+;;semantic-tag-folding
+(when window-system
+  (global-semantic-tag-folding-mode 1))
+
 (semantic-load-enable-semantic-debugging-helpers)
 ;; Enable SRecode (Template management) minor-mode.
 (global-srecode-minor-mode 1)
@@ -27,6 +44,29 @@
                         (setq first (cdr (car (cdr alist)))))
                     (semantic-mrub-switch-tags first))))
 
+;;Cpp/h文件跳转
+(require 'eassist nil 'noerror)
+(setq eassist-header-switches
+      '(("h" . ("cpp" "cxx" "c++" "CC" "cc" "C" "c" "mm" "m"))
+        ("hh" . ("cc" "CC" "cpp" "cxx" "c++" "C"))
+        ("hpp" . ("cpp" "cxx" "c++" "cc" "CC" "C"))
+        ("hxx" . ("cxx" "cpp" "c++" "cc" "CC" "C"))
+        ("h++" . ("c++" "cpp" "cxx" "cc" "CC" "C"))
+        ("H" . ("C" "CC" "cc" "cpp" "cxx" "c++" "mm" "m"))
+        ("HH" . ("CC" "cc" "C" "cpp" "cxx" "c++"))
+        ("cpp" . ("hpp" "hxx" "h++" "HH" "hh" "H" "h"))
+        ("cxx" . ("hxx" "hpp" "h++" "HH" "hh" "H" "h"))
+        ("c++" . ("h++" "hpp" "hxx" "HH" "hh" "H" "h"))
+        ("CC" . ("HH" "hh" "hpp" "hxx" "h++" "H" "h"))
+        ("cc" . ("hh" "HH" "hpp" "hxx" "h++" "H" "h"))
+        ("C" . ("hpp" "hxx" "h++" "HH" "hh" "H" "h"))
+        ("c" . ("h"))
+        ("m" . ("h"))
+        ("mm" . ("h"))))
+(define-key c-mode-base-map [M-f12] 'eassist-switch-h-cpp)
+
+;;函数声明/实现跳转
+(define-key c-mode-base-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
 
 ;;代码补全
 ;;;配置Semantic的检索范围:

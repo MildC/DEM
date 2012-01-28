@@ -2,9 +2,6 @@
 
 (require 'ruby-mode)
 
-;;×Ô¶¯Ëõ½ø
-(define-key ruby-mode-map [(return)] 'newline-and-indent)
-
 (setq auto-mode-alist
       (append '(("//.rb$" . ruby-mode)) auto-mode-alist))
 (setq interpreter-mode-alist (append '(("ruby" . ruby-mode))

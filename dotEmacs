@@ -7,6 +7,13 @@
 ;;设置emacs扩展读取路径
 (add-to-list 'load-path (concat emacs-path "extension"))
 
+(require 'misc-func)
+
+;; 利用`eval-after-load'加快启动速度的库
+;; 用eval-after-load避免不必要的elisp包的加载
+;; http://emacser.com/eval-after-load.htm
+(require 'eval-after-load)
+
 ;; 编码设置
 (require 'coding-settings)
 

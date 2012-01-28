@@ -1,31 +1,47 @@
-;(require 'util)
-;(require 'ahei-misc)
-
 ;; 语法高亮
 (global-font-lock-mode t)
 
-;;自动补全括号
+;; 回车后indent
+(eal-define-keys
+ `(lisp-mode-map emacs-lisp-mode-map lisp-interaction-mode-map sh-mode-map
+                 awk-mode-map java-mode-map
+                 ruby-mode-map c-mode-base-map tcl-mode-map org-mode-map
+                 python-mode-map perl-mode-map)
+ `(("RET" newline-and-indent)))
+
+
+
+(defun generate-tag-table ()
+  "Generate tag tables under current directory(Linux)."
+  (interactive)
+  (let ((exp "") (dir ""))
+    (setq dir (read-from-minibuffer "generate tags in: " default-directory)
+          exp (read-from-minibuffer "suffix: "))
+    (with-temp-buffer
+      (shell-command
+       (concat "find " dir " -name \"" exp "\" | xargs etags ")
+       (buffer-name)))))
+
+;;自动补全引号括号
 (defun my-common-mode-auto-pair () 
 (interactive) 
 (make-local-variable 'skeleton-pair-alist) 
 (setq skeleton-pair-alist '( 
 (? ? _ "''")
 (? ? _ """")
-))
+(? ? _ "()")
+(? ? _ "[]")
+(?{ \n > _ \n ?} >)))
 (setq skeleton-pair t)
+(local-set-key (kbd "(") 'skeleton-pair-insert-maybe) 
 (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe) 
-(local-set-key (kbd "\'") 'skeleton-pair-insert-maybe))
+(local-set-key (kbd "{") 'skeleton-pair-insert-maybe) 
+(local-set-key (kbd "\'") 'skeleton-pair-insert-maybe) 
+(local-set-key (kbd "[") 'skeleton-pair-insert-maybe)) 
 
-(add-hook 'c-mode-hook 'my-common-mode-auto-pair)
-(add-hook 'c++-mode-hook 'my-common-mode-auto-pair)
-(add-hook 'ruby-mode-hook 'my-common-mode-auto-pair)
-(add-hook 'lisp-mode-hook 'my-common-mode-auto-pair)
-(add-hook 'emacs-lisp-mode-hook 'my-common-mode-auto-pair)
-(add-hook 'java-mode-hook       'my-common-mode-auto-pair)
-(add-hook 'ess-mode-hook       'my-common-mode-auto-pair)
-(add-hook 'perl-mode-hook       'my-common-mode-auto-pair)
-(add-hook 'cperl-mode-hook       'my-common-mode-auto-pair)
-(add-hook 'sh-mode-hook         'my-common-mode-auto-pair)
+(am-add-hooks
+ `(c-mode-common-hook lisp-mode-hook emacs-lisp-mode-hook java-mode-hook ruby-mode-hook ess-mode-hook perl-mode-hook cperl-mode-hook sh-mode-hook)
+ 'my-common-mode-auto-pair)
 
 ;; 绑定括号转跳到%，和vi相同
 (global-set-key "%" 'match-paren)
@@ -38,15 +54,17 @@
  (t (self-insert-command (or arg 1)))))
 
 ;; hs-minor-mode,折叠代码
-(add-hook 'lisp-mode-hook 'hs-minor-mode)
-(add-hook 'c-mode-common-hook   'hs-minor-mode)
-(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
-(add-hook 'java-mode-hook       'hs-minor-mode)
-(add-hook 'ess-mode-hook       'hs-minor-mode)
-(add-hook 'perl-mode-hook       'hs-minor-mode)
-(add-hook 'sh-mode-hook         'hs-minor-mode)
-;;设置F10为代码折叠快捷键
-(global-set-key [f10] 'hs-toggle-hiding)
+(am-add-hooks
+ `(c-mode-common-hook lisp-mode-hook emacs-lisp-mode-hook java-mode-hook)
+ 'hs-minor-mode)
+(defun hs-minor-mode-settings ()
+  "settings of `hs-minor-mode'."
+  (setq hs-isearch-open t)
+  (define-key hs-minor-mode-map [(f8)] 'hs-toggle-hiding)
+)
+
+(eval-after-load "hideshow"
+  '(hs-minor-mode-settings))
 
 ;;======================			拷贝代码自动格式化		  =====================
 ;;Emacs 里对代码的格式化支持的非常好，不但可以在编辑的时候自动帮你格式化，还可以选中一块代码，
@@ -66,14 +84,14 @@
 					 haskell-mode
 					 js-mode
 					 latex-mode
-						lisp-mode
+					 lisp-mode
 					 objc-mode
 					 perl-mode
 					 cperl-mode
 					 plain-tex-mode
 					 python-mode
 					 rspec-mode
-						ruby-mode
+					 ruby-mode
 					 scheme-mode))
 		   (let ((mark-even-if-inactive transient-mark-mode))
 			 (indent-region (region-beginning) (region-end) nil))))))
@@ -82,42 +100,7 @@
 ;;flymake配置，需要Makefile支持
 ;;;;check-syntax:
 ;;;;	$(CXXCOMPILE) -Wall -Wextra -pedantic -fsyntax-only $(CHK_SOURCES)
-;;不需要ahei的eval函数调用
-;;基本配置
-(autoload 'flymake-find-file-hook "flymake" "" t)
-(add-hook 'find-file-hook 'flymake-find-file-hook)
-(setq flymake-gui-warnings-enabled nil)
-(setq flymake-log-level 0)
-;;minibuffer显示错误信息
-(defun flymake-display-current-error ()
-  "Display errors/warnings under cursor."
-  (interactive)
-  (let ((ovs (overlays-in (point) (1+ (point)))))
-    (catch 'found
-      (dolist (ov ovs)
-        (when (flymake-overlay-p ov)
-          (message (overlay-get ov 'help-echo))
-          (throw 'found t))))))
-(defun flymake-goto-next-error-disp ()
-  "Go to next error in err ring, then display error/warning."
-  (interactive)
-  (flymake-goto-next-error)
-  (flymake-display-current-error))
-(defun flymake-goto-prev-error-disp ()
-  "Go to previous error in err ring, then display error/warning."
-  (interactive)
-  (flymake-goto-prev-error)
-  (flymake-display-current-error))
-;;函数按键绑定
-(defvar flymake-mode-map (make-sparse-keymap))
-(define-key flymake-mode-map (kbd "C-c N") 'flymake-goto-next-error-disp)
-(define-key flymake-mode-map (kbd "C-c P") 'flymake-goto-prev-error-disp)
-(define-key flymake-mode-map (kbd "C-c M-w")
-  'flymake-display-err-menu-for-current-line)
-(or (assoc 'flymake-mode minor-mode-map-alist)
-    (setq minor-mode-map-alist
-          (cons (cons 'flymake-mode flymake-mode-map)
-                minor-mode-map-alist)))
+(require 'flymake-settings)
 
 ;; 始终打开which-func-mode
 (which-func-mode 1)
@@ -129,7 +112,81 @@
 
 ;; ecb配置
 (add-to-list 'load-path (concat emacs-path "extension/ecb"))
-(require 'ecb)
+;; ecb
+(require 'ecb-autoloads nil 'noerror)
+(unless (boundp 'stack-trace-on-error)
+  (defvar stack-trace-on-error nil))
+(when (fboundp 'ecb-minor-mode)
+  (defvar ecb-minor-mode nil)
+  (setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1
+        ecb-source-path '("/")
+        ecb-layout-name 'left3
+        ecb-toggle-layout-sequence '("left3"
+                                     "left8"
+                                     "left-analyse"
+                                     "left-symboldef")
+        ;; ecb-windows-width 0.25
+        ecb-compile-window-height 0.15
+        ecb-compile-window-width 'edit-window
+        ecb-compile-window-temporally-enlarge 'after-selection
+        ;; ecb-enlarged-compilation-window-max-height 0.8
+        ecb-tip-of-the-day nil
+        ecb-auto-compatibility-check nil))
+(eval-after-load "ecb"
+  '(progn
+     (setq ecb-compilation-buffer-names
+           (append ecb-compilation-buffer-names '(("*Process List*")
+                                                  ("*Proced*")
+                                                  (".notes")
+                                                  ("*appt-buf*")
+                                                  ("*Compile-Log*")
+                                                  ("*etags tmp*")
+                                                  (" *svn-process*")
+                                                  ("*svn-info-output*")
+                                                  ("*Python Output*")
+                                                  ("*Org Agenda*")
+                                                  (" *EMMS Playlist*")
+                                                  ("*Moccur*")
+                                                  ("*Directory"))))
+     (setq ecb-compilation-major-modes
+           (append ecb-compilation-major-modes '(change-log-mode
+                                                 calendar-mode
+                                                 diary-mode
+                                                 diary-fancy-display-mode
+                                                 xgtags-select-mode
+                                                 svn-status-mode
+                                                 svn-info-mode
+                                                 svn-status-diff-mode
+                                                 svn-log-view-mode
+                                                 svn-log-edit-mode
+                                                 erc-mode
+                                                 gud-mode)))))
+;;imenu-tree
+(add-to-list 'load-path (concat emacs-path "extension/imenu-tree"))
+(require 'imenu-tree)
+
+(defun imenu-tree-settings ()
+  "Settings for `imenu-tree'."
+  (defun imenu-tree-expand (tree)
+    (or (widget-get tree :args)
+        (let ((buf (widget-get tree :buffer))
+              index)
+          (setq index
+                (with-current-buffer buf
+                  (setq imenu--index-alist nil)
+                  (let ((imenu-create-index-function 'imenu-default-create-index-function))
+                    (imenu--make-index-alist t))
+                  (delq nil imenu--index-alist)))
+          (mapcar
+           (lambda (item)
+             (imenu-tree-item item buf "function"))
+           index))))
+  (global-set-key (kbd "C-c i") 'imenu-tree)
+  (setq tags-table-list '("./TAGS" "../TAGS" "../../TAGS"))
+  (setq imenu-tree-auto-update t))
+
+(eval-after-load "imenu-tree"
+  `(imenu-tree-settings))
 
 ;;c/c++设置
 (require 'c-settings)

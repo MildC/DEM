@@ -7,7 +7,6 @@
      (add-hook 'rhtml-mode-hook
      	  (lambda () (rinari-launch)))
 
-(define-key rhtml-mode-map [(return)] 'newline-and-indent)
 (define-key rhtml-mode-map (kbd "TAB") 'complete-or-indent-for-ruby)
 
 (autoload 'rhtml-minor-mode "rhtml-minor-mode"

@@ -73,7 +73,7 @@
 (if window-system
     (define-key global-map (kbd "C-2") 'set-mark-command))
 
-;;王纯业的智能标记绑定在 C-3 上。就是根据光标的所在位置，智能的选择一块区域，也就
+;;智能标记绑定在 C-3 上。就是根据光标的所在位置，智能的选择一块区域，也就
 ;;是设置成为当前的 point 和 mark。这样就可以方便的拷贝或者剪切，或者交换他们的位
 ;;置。
 ;;如果当前光标在一个单词上，那么区域就是这个单词的开始和结尾分别。
@@ -131,5 +131,9 @@
  )
 (global-set-key (kbd "C-c l") (quote copy-line))
 
+(eal-define-keys-commonly
+ global-map
+ `(;; 使终端支持鼠标
+   ("C-x T"            xterm-mouse-mode)))
 
 (provide 'misc-settings)
