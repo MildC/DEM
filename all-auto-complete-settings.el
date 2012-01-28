@@ -43,7 +43,7 @@
 			 (concat emacs-path "extension/yasnippet/"))
 (require 'yasnippet) ;; not yasnippet-bundle
 (yas/global-mode t) 
-(yas/load-directory (concat emacs-path "extension/yasnippet/snippets"))
+(setq yas/snippet-dirs '((concat emacs-path "extension/yasnippet/snippets") (concat emacs-path "snippets")))
 
 ;; ×Ô¶¯²¹È«
 (require 'auto-complete-settings)
