@@ -1,7 +1,7 @@
 # name: for (int j = ..; j< ..; ++j) { ... }
 # key: forj
 # --
-for (int j = ${1:0}; j < ${2:N}; ++j})
+for (int j = ${1:0}; j < ${2:N}; ++j)
 {
     $0
 }

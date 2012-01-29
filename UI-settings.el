@@ -36,6 +36,8 @@
 (setq line-number-mode t)
 (global-linum-mode t)
 
+(setq default-tab-width 4)
+
 ;; œ‘ æ≈‰∂‘¿®∫≈
 (setq show-paren-delay 0)
 (show-paren-mode t)

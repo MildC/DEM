@@ -9,7 +9,6 @@
     (subword-mode t))
 
   (setq-default c-default-style "linux"		;缩进风格为Linux内核开发风格
-			  tab-width 4		;tab大小设置
 			  c-basic-offset 4	;自动缩进大小
 			  indent-tabs-mode t)	;自动缩进使用的是tab而非空格
 
