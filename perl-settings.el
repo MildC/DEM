@@ -24,7 +24,7 @@
 
   (setq-default indent-tabs-mode nil)
 
-  ;;F11±àÒë
+  ;;F11ç¼–è¯‘
   (defun perl-eval () "Run selected region as Perl code" (interactive)
      (shell-command-on-region (mark) (point) "perl "))
   (global-set-key (kbd "<f11>") 'perl-eval)
