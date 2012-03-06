@@ -12,6 +12,11 @@
   "Settings for `perl'."
   (setq cperl-hairy t)
 
+  (custom-set-faces
+     '(cperl-array-face ((t (:foreground "green" :weight bold))))
+     '(cperl-hash-face ((t (:foreground "yellow" :slant italic :weight bold))))
+  )
+
   (defun cperl-eldoc-documentation-function ()
     "Return meaningful doc string for `eldoc-mode'."
     (car
