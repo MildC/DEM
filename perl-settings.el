@@ -5,7 +5,7 @@
 (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
 
 (add-to-list 'load-path
-    		 (concat emacs-path "extension/pde/lisp/"))
+    		 (concat emacs-path "extension/PDE/lisp/"))
 (load "pde-load")
 
 (defun perl-settings ()
