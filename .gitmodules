@@ -1,3 +1,6 @@
 [submodule "extension/PDE"]
 	path = extension/PDE
 	url = git@github.com:MildC/PDE.git
+[submodule "extension/yasnippet"]
+	path = extension/yasnippet
+	url = git://github.com/capitaomorte/yasnippet.git
