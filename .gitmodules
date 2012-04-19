@@ -4,3 +4,9 @@
 [submodule "extension/yasnippet"]
 	path = extension/yasnippet
 	url = git://github.com/capitaomorte/yasnippet.git
+[submodule "extension/projectile"]
+	path = extension/projectile
+	url = https://github.com/bbatsov/projectile.git
+[submodule "extension/helm"]
+	path = extension/helm
+	url = git://github.com/emacs-helm/helm.git

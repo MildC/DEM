@@ -1,3 +1,5 @@
 backups
 abbrev_defs
 tramp
+auto-save-list/*
+extension/PDE/lisp/tools/perldoc-cache.el

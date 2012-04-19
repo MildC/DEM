@@ -25,6 +25,9 @@
 ;; 各种语言开发方面的设置
 (require 'dev-settings)
 
+;; projectile & helm
+(require 'projectile-settings)
+
 
 ;;to be merged into dev-settings later
 ;;pymacs
