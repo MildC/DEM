@@ -56,7 +56,7 @@
 
 ;; hs-minor-mode,折叠代码
 (am-add-hooks
- `(c-mode-common-hook lisp-mode-hook emacs-lisp-mode-hook java-mode-hook)
+ `(c-mode-common-hook lisp-mode-hook emacs-lisp-mode-hook java-mode-hook perl-mode-hook cperl-mode-hook)
  'hs-minor-mode)
 (defun hs-minor-mode-settings ()
   "settings of `hs-minor-mode'."
