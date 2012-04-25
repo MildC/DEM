@@ -6,8 +6,6 @@
 
 (require 'helm-config)
 
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-
 (require 'projectile)
 (require 'helm-projectile)
 (projectile-global-mode) ;; to enable in all buffers
