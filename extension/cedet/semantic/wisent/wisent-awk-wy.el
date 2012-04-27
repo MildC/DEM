@@ -3,7 +3,7 @@
 ;; Copyright (C) 2002 David Ponce
 
 ;; Author: MildC <c@NightCat>
-;; Created: 2012-04-26 23:40:52-0700
+;; Created: 2012-04-26 23:53:21-0700
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

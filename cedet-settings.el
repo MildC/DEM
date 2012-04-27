@@ -1,6 +1,6 @@
 ;; CEDET
 (add-to-list 'load-path (concat emacs-path "extension/cedet/common"))
-(load-file "common/cedet.el")
+(load-file "extension/cedet/common/cedet.el")
 
 ;; semantic
 (semantic-load-enable-code-helpers)
