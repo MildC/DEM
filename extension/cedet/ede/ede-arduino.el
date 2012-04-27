@@ -68,7 +68,9 @@ Consider expanding this at some later date."
 	(when (file-directory-p root)
 	  (if basefile
 	      (let ((tmp (expand-file-name (concat (car dirsplit) ".pde") root)))
-		(when (not (file-exists-p tmp))
+		;; Also check for the desired file in a buffer if the
+		;; user just made the file but not saved it yet.
+		(when (or (not (file-exists-p tmp)) (not (get-file-buffer tmp)))
 		  (setq tmp (expand-file-name (concat (car dirsplit) ".ino") root)))
 		tmp)
 	    root))))))
@@ -177,7 +179,7 @@ If one doesn't exist, create a new one for this directory."
 (defun ede-arduino-upload ()
   "Compile the current project, and upload the result to the board."
   (interactive)
-  (project-compile-project (ede-current-project) "make upload"))
+  (project-compile-project (ede-current-project) "make all upload"))
 
 (eval-when-compile (require 'term))
 
@@ -307,6 +309,7 @@ Argument COMMAND is the command to use for compiling the target."
   "Guess which libraries this sketch use."
   (interactive)
   (let* ((libs nil)
+	 (libdir nil)
 	 (sketch (ede-arduino-guess-sketch))
 	 (orig-buffer (get-file-buffer sketch))
 	 (buff nil)
@@ -319,7 +322,15 @@ Argument COMMAND is the command to use for compiling the target."
 	(while (re-search-forward "#include <\\(\\w+\\).h>" nil t)
 	  (setq tmp (match-string 1))
 	  (unless (file-exists-p (concat tmp ".h"))
-	    (push (match-string 1) libs)))))
+	    (let* ((lib (match-string 1))
+		   (libdir (ede-arduino-libdir lib))
+		   (util (expand-file-name "utility" libdir)))
+	      ;; Some libraries need a utility added to the library list.
+	      (when (file-exists-p util)
+		(push (concat lib "/utility") libs))
+	      ;; Push real lib after the utility
+	      (push lib libs)
+	      )))))
     (when (not orig-buffer) (kill-buffer buff))
     libs))
     
@@ -510,6 +521,14 @@ This is also where Arduino.mk will be found."
 (defun ede-arduino-boards.txt ()
   "Return the location of Arduino's boards.txt file."
   (expand-file-name "hardware/arduino/boards.txt" (ede-arduino-find-install)))
+
+(defun ede-arduino-libdir (&optional library)
+  "Return the full file location of LIBRARY.
+If LIBRARY is not provided as an argument, just return the library directory."
+  (let ((libdir (expand-file-name "libraries" (ede-arduino-find-install))))
+    (if library
+	(expand-file-name library libdir)
+      libdir)))
 
 ;;; Arduino Board Reading
 ;; 

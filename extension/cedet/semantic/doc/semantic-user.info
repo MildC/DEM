@@ -2063,8 +2063,8 @@ again.
 
 File: semantic-user.info,  Node: GNU Free Documentation License,  Next: Index,  Prev: Debugging,  Up: Top
 
-附录 A GNU Free Documentation License
-***************************************
+Appendix A GNU Free Documentation License
+*****************************************
 
                         Version 1.1, March 2000
 
@@ -2740,6 +2740,6 @@ Node: Create System Databases75132
 Ref: semanticdb-create-ebrowse-database75589
 Node: Debugging75781
 Node: GNU Free Documentation License80128
-Node: Index99850
+Node: Index99854
 
 End Tag Table

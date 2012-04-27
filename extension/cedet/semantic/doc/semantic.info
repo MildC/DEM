@@ -828,8 +828,8 @@ File: semantic.info,  Node: Tests,  Prev: Tools,  Up: Semantic Internals
 
 File: semantic.info,  Node: Glossary,  Next: GNU Free Documentation License,  Prev: Semantic Internals,  Up: Top
 
-附录 A Glossary
-*****************
+Appendix A Glossary
+*******************
 
 BNF
      In semantic 1.4, a BNF file represented "Bovine Normal Form", the
@@ -897,8 +897,8 @@ wisent parser
 
 File: semantic.info,  Node: GNU Free Documentation License,  Next: Index,  Prev: Glossary,  Up: Top
 
-附录 B GNU Free Documentation License
-***************************************
+Appendix B GNU Free Documentation License
+*****************************************
 
                         Version 1.1, March 2000
 
@@ -1318,22 +1318,22 @@ Node: Analyzer26851
 Node: Tools28774
 Node: Tests30451
 Node: Glossary30909
-Ref: BNF31062
-Ref: bovinate31261
-Ref: bovine lambda31350
-Ref: bovine parser31533
-Ref: context31659
-Ref: LALR31668
-Ref: lexer31674
-Ref: LL31888
-Ref: nonterminal31892
-Ref: overloadable32083
-Ref: parser32191
-Ref: tag32244
-Ref: token32589
-Ref: token stream32707
-Ref: wisent parser32786
-Node: GNU Free Documentation License32953
-Node: Index52669
+Ref: BNF31066
+Ref: bovinate31265
+Ref: bovine lambda31354
+Ref: bovine parser31537
+Ref: context31663
+Ref: LALR31672
+Ref: lexer31678
+Ref: LL31892
+Ref: nonterminal31896
+Ref: overloadable32087
+Ref: parser32195
+Ref: tag32248
+Ref: token32593
+Ref: token stream32711
+Ref: wisent parser32790
+Node: GNU Free Documentation License32957
+Node: Index52677
 
 End Tag Table

@@ -10,7 +10,7 @@ top=../
 ede_FILES=Project.ede Makefile
 
 TestFiles_MISC=testclasses.hh
-VERSION=1.1beta
+VERSION=1.1
 DISTDIR=$(top)COGRE-$(VERSION)/tests
 
 

@@ -401,6 +401,13 @@ INSTALL file in the top level CEDET directory.
      modes, or as an extra database backend parser, install ctags:
      `http://ctags.sourceforge.net/'
 
+     For developing Android programs:
+     `http://developer.android.com/sdk/index.html'.
+
+     For developing Arduino programs: Major Mode:
+     `https://github.com/bookest/arduino-mode' Arduino
+     IDE:`http://arduino.cc/en/Main/Software'
+
      To use the UML chart generation from `M-x semantic-dot' graphviz
      dot programs, including `dotty' `http://www.graphviz.org/'
 
@@ -859,8 +866,8 @@ of Arduino development with CEDET on Linux.
 `http://arduino.cc/en/Main/Software', and arduino-mode for Emacs.
 `https://github.com/bookest/arduino-mode'
 
-11.1 Create and Arduino Sketch (Project)
-========================================
+11.1 Create an Arduino Sketch (Project)
+=======================================
 
 To create an arduino sketch, you will need to first use the Arduino
 IDE.  Use the preferences to set the location of your sketchbook (where
@@ -1139,8 +1146,8 @@ with directories on your system.
 
 File: cedet.info,  Node: GNU Free Documentation License,  Next: Index,  Prev: Maintenance,  Up: Top
 
-附录 A GNU Free Documentation License
-***************************************
+Appendix A GNU Free Documentation License
+*****************************************
 
                         Version 1.1, March 2000
 
@@ -1531,29 +1538,29 @@ Node: EDE8692
 Node: COGRE10015
 Node: Other Library Functions10550
 Node: Installation/Basic Configuration13146
-Node: CEDET Context Menu15708
-Node: JDEE Target16508
-Node: ECB Target17573
-Node: Project Management18296
-Node: Code Completion19631
-Node: Code Generation21255
-Node: C++ Features22024
-Ref: semantic-lex-c-preprocessor-symbol-map22658
-Ref: semantic-lex-c-preprocessor-symbol-file24010
-Ref: semantic-c-obey-conditional-section-parsing-flag24603
-Ref: semantic-lex-c-nested-namespace-ignore-second24850
-Node: Android Features27134
-Ref: cedet-android-sdk-root27935
-Ref: cedet-android-create-project28103
-Ref: cedet-android-visit-sample31353
-Node: Arduino Features31611
-Ref: ede-arduino-preferences-file32791
-Ref: cedet-arduino-serial-monitor33824
-Node: GNU Global34683
-Node: ID Utils36731
-Node: CScope38253
-Node: Maintenance40628
-Node: GNU Free Documentation License41038
-Node: Index60757
+Node: CEDET Context Menu15951
+Node: JDEE Target16751
+Node: ECB Target17816
+Node: Project Management18539
+Node: Code Completion19874
+Node: Code Generation21498
+Node: C++ Features22267
+Ref: semantic-lex-c-preprocessor-symbol-map22901
+Ref: semantic-lex-c-preprocessor-symbol-file24253
+Ref: semantic-c-obey-conditional-section-parsing-flag24846
+Ref: semantic-lex-c-nested-namespace-ignore-second25093
+Node: Android Features27377
+Ref: cedet-android-sdk-root28178
+Ref: cedet-android-create-project28346
+Ref: cedet-android-visit-sample31596
+Node: Arduino Features31854
+Ref: ede-arduino-preferences-file33032
+Ref: cedet-arduino-serial-monitor34065
+Node: GNU Global34924
+Node: ID Utils36972
+Node: CScope38494
+Node: Maintenance40869
+Node: GNU Free Documentation License41279
+Node: Index61002
 
 End Tag Table

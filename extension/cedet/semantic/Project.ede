@@ -1,8 +1,8 @@
 ;; Object semantic
-;; EDE project file.
+;; EDE Project Files are auto generated: Do Not Edit
 (ede-proj-project "semantic"
   :name "semantic"
-  :version "2.1beta"
+  :version "2.1"
   :file "Project.ede"
   :targets (list 
    (ede-proj-target-elisp-autoloads "autoloads"
@@ -73,7 +73,7 @@
    (ede-proj-target-elisp "tests"
     :name "tests"
     :path ""
-    :source '("semantic-regtest.el" "semantic-ia-utest.el" "semantic-utest.el" "semantic-utest-c.el")
+    :source '("semantic-regtest.el" "semantic-ia-utest.el" "semantic-utest.el" "semantic-utest-c.el" "semantic-fmt-utest.el")
     )
    (ede-proj-target-makefile-miscelaneous "example"
     :name "example"
@@ -88,7 +88,7 @@
    (ede-proj-target-aux "misc"
     :name "misc"
     :path ""
-    :source '("INSTALL" "NEWS" "ChangeLog" "AUTHORS" "ONEWS" "renamelist.txt")
+    :source '("INSTALL" "ChangeLog" "AUTHORS" "ONEWS" "OONEWS" "renamelist.txt")
     )
    )
   :web-site-url "http://cedet.sourceforge.net/semantic.shtml"

@@ -3,7 +3,7 @@
 ;; Copyright (C) 2002, 2003, 2004, 2007, 2012 Richard Kim
 
 ;; Author: MildC <c@NightCat>
-;; Created: 2012-03-02 23:19:13-0800
+;; Created: 2012-04-26 23:40:59-0700
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

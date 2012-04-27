@@ -1405,8 +1405,8 @@ NOTE: Write Me
 
 File: semantic-langdev.info,  Node: GNU Free Documentation License,  Next: Index,  Prev: Parser Error Handling,  Up: Top
 
-附录 A GNU Free Documentation License
-***************************************
+Appendix A GNU Free Documentation License
+*****************************************
 
                         Version 1.1, March 2000
 
@@ -1925,6 +1925,6 @@ Ref: semantic-edits-verbose-flag51501
 Node: Semantic 1.4 Doc51636
 Node: Parser Error Handling53407
 Node: GNU Free Documentation License53600
-Node: Index73337
+Node: Index73341
 
 End Tag Table
