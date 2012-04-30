@@ -14,7 +14,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; 绑定C-j为goto-line
-(global-set-key (kbd "C-j") 'goto-line)
+(global-set-key "\M-g" 'goto-line)
 
 ;; 设置书签文件
 (setq bookmark-default-file (concat emacs-path ".emacs.bmk"))
