@@ -1,6 +1,8 @@
 (add-to-list 'load-path (concat emacs-path "extension/ruby-mode"))
 
-(require 'ruby-mode)
+(add-to-list 'load-path (concat emacs-path "extension/flymake-ruby"))
+(require 'flymake-ruby)
+(add-hook 'ruby-mode-hook 'flymake-ruby-load)
 
 (setq auto-mode-alist
       (append '(("//.rb$" . ruby-mode)) auto-mode-alist))
@@ -15,8 +17,6 @@
             (inf-ruby-keys)))
 (add-hook 'ruby-mode-hook 'turn-on-font-lock)
 
-(define-key global-map (kbd "C-x r") 'run-ruby)
-
 (autoload 'run-ruby
   "Run an inferior Ruby process, input and output via buffer *ruby*.
 If there is a process already running in `*ruby*', switch to that buffer.
@@ -27,32 +27,16 @@ of `ruby-program-name').  Runs the hooks `inferior-ruby-mode-hook'
 
 (defun ruby-settings ()
   "Settings for `ruby'."
-  (defun complete-or-indent-for-ruby (arg)
-    (interactive "P")
-    (complete-or-indent arg nil 'ruby-indent-command))
 
-(define-key ruby-mode-map (kbd "TAB") 'complete-or-indent-for-ruby)
-(define-key ruby-mode-map (kbd "C-j") 'goto-line)
-(define-key ruby-mode-map (kbd "C-c C-c") 'comment)
-(define-key ruby-mode-map (kbd "{") 'self-insert-command)
-(define-key ruby-mode-map (kbd "}") 'self-insert-command)
+  ;; flymake settings
+  (set-face-background 'flymake-errline "red4")
+  (set-face-background 'flymake-warnline "dark slate blue")
 
-  (defun ruby-keys ()
-    "Ruby keys definition."
-    (local-set-key (kbd "<return>") 'newline-and-indent))
-  (add-hook 'ruby-mode-hook
-            (lambda ()
-              (setq ruby-indent-level 4)
-              (ruby-electric-mode nil)
-              (ruby-keys)) t)
+  (define-key global-map (kbd "<f11>") 'run-ruby)
 
-  (defun ruby-mark-defun ()
-    "Put mark at end of this Ruby function, point at beginning."
-    (interactive)
-    (push-mark (point))
-    (ruby-end-of-defun)
-    (push-mark (point) nil t)
-    (ruby-beginning-of-defun))
 )
+
+(eval-after-load "ruby-mode"
+  `(ruby-settings))
 
 (provide 'ruby-settings)

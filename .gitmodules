@@ -10,3 +10,6 @@
 [submodule "extension/helm"]
 	path = extension/helm
 	url = git://github.com/emacs-helm/helm.git
+[submodule "extension/flymake-ruby"]
+	path = extension/flymake-ruby
+	url = git://github.com/purcell/flymake-ruby.git

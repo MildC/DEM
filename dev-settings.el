@@ -41,7 +41,7 @@
 (local-set-key (kbd "[") 'skeleton-pair-insert-maybe)) 
 
 (am-add-hooks
- `(c-mode-common-hook lisp-mode-hook emacs-lisp-mode-hook java-mode-hook ruby-mode-hook ess-mode-hook perl-mode-hook cperl-mode-hook sh-mode-hook)
+ `(c-mode-common-hook lisp-mode-hook emacs-lisp-mode-hook java-mode-hook ruby-mode-hook ess-mode-hook perl-mode-hook cperl-mode-hook ruby-mode-hook sh-mode-hook)
  'my-common-mode-auto-pair)
 
 ;; 绑定括号转跳到%，和vi相同
@@ -56,7 +56,7 @@
 
 ;; hs-minor-mode,折叠代码
 (am-add-hooks
- `(c-mode-common-hook lisp-mode-hook emacs-lisp-mode-hook java-mode-hook perl-mode-hook cperl-mode-hook)
+ `(c-mode-common-hook lisp-mode-hook emacs-lisp-mode-hook java-mode-hook perl-mode-hook cperl-mode-hook ruby-mode-hook)
  'hs-minor-mode)
 (defun hs-minor-mode-settings ()
   "settings of `hs-minor-mode'."
@@ -182,7 +182,7 @@
 (require 'ruby-settings)
 
 ;; rails
-(require 'rails-settings)
+;(require 'rails-settings)
 
 ;; perl
 (require 'perl-settings)
